@@ -18,6 +18,7 @@ body {
   min-height: 100vh;
   background-color: #111;
   color: #fff;
+  padding: 1rem;
 }
 
 .container {
@@ -25,13 +26,14 @@ body {
   max-width: 100%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  -ms-grid-rows: minmax(100px, auto);
-      grid-template-rows: minmax(100px, auto);
-  margin: 40px;
+  -ms-grid-columns: ([col] minmax(300px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, [col] minmax(300px, 1fr));
+  -ms-grid-rows: [row] minmax(100px, auto);
+      grid-template-rows: [row] minmax(100px, auto);
+  margin: 10px;
   grid-auto-flow: dense;
   grid-gap: 10px;
+  overflow: hidden;
 }
 
 .container .box {
@@ -86,6 +88,11 @@ body {
 .container .box:hover {
   -webkit-filter: invert(100%);
   filter: invert(100%);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  vertical-align: middle;
+  -webkit-box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
+          box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
 }
 
 .container .box img {
