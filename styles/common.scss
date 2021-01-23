@@ -11,6 +11,25 @@ rgba($color: #b4da6e, $alpha: 1.0),
 rgba($color: #d4bf44, $alpha: 1.0),
 rgba($color: #721313, $alpha: 1.0);
 
+$background-gradient: linear-gradient(to right, #33001b, #ff0084);
+$background-gradient-dark: linear-gradient(
+    to right bottom, 
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0.8)
+    );
+
+    $column-row-map: (
+        1: (col: 2, row: 1),
+        2: (col: 2, row: 2),
+        3: (col: 1, row: 1),
+        4: (col: 1, row: 2),
+        5: (col: 3, row: 1),
+        6: (col: 1, row: 1),
+        7: (col: 1, row: 1),
+        8: (col: 1, row: 1),
+        9: (col: 3, row: 1)
+    );
+
 * {
     margin: 0;
     padding: 0;
@@ -24,16 +43,15 @@ body {
     justify-content: center;
     align-self: center;
     min-height: 100vh;
-    background-color: #111;
     color: #fff;
     padding: 1rem;
+    background: $background-gradient-dark;
 }
 
-// .img-fit {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-// }
+.isometric {
+    transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+}
+
 
 .container {
     position: relative;
@@ -47,14 +65,15 @@ body {
     overflow: hidden;
 
     .box {
-        background-color: #333;
+        // background-color: rgba(0, 0, 0, 0.5);
         padding: 20px;
         display: grid;
         font-size: 20px;
         place-items: center;
         text-align: center;
         color: #fff;
-        transition: 0.5s;
+        transition: 0.5s ease-in-out;
+        border-radius: 0.5rem;
     
         // set each cell color
         @for $i from 1 through 9 {
@@ -71,13 +90,12 @@ body {
     }
 
     .box:hover {
-        // background-color: #e91e63 ;
-        -webkit-filter: invert(100%);
-        filter: invert(100%);
+        background-color: #e91e63 ;
+        // -webkit-filter: invert(100%);
+        // filter: invert(100%);
         transform: scale(1.1);
         vertical-align: middle;
-        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
-        // transition: filter 0.3s ease-in;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     }
 
     .box img {
@@ -87,44 +105,23 @@ body {
         
     }
 
-    .box:nth-child(1) {
-        grid-column: span 2;
-        grid-row: span 1;
-    }
+    @each $key, $value in  $column-row-map {
+        .box:nth-child(#{$key}) {
+            grid-column: span map-get($value, col);
+            grid-row: span map-get($value, row);
+        } 
+     }
 
-    // .box:nth-child(1):hover {
+    //  .box:nth-child(1):hover {
     //     grid-column: span 3;
     //     grid-row: span 3;
     // }
-
-    .box:nth-child(2) {
-        grid-column: span 2;
-        grid-row: span 2;
-    //     background-image: url('../images/bike.jpg');
-    //     background-size: cover;
-    //     background-repeat: no-repeat;
-    }
-
-    .box:nth-child(4) {
-        grid-column: span 1;
-        grid-row: span 2;
-    }
-
-    .box:nth-child(5) {
-        grid-column: span 3;
-        grid-row: span 1;
-    }
-
-    .box:nth-child(9) {
-        grid-column: span 3;
-        grid-row: span 1;
-    }
-
 }
 // trying to make the last row expand to any empty space
 // .container .box:last-child { 
 //     grid-row: x/y; 
 // }
+
 
 
 @media (max-width: 991px) {
